@@ -19,16 +19,4 @@ class GameDomainService {
             title = command.title,
             gameCreator = command.gameCreator,
         )
-
-    data class UpdateGameCommand(
-        val status: Game.Status? = null,
-        val winner: Player? = null,
-    )
-
-    fun updateGame(
-        game: Game,
-        command: UpdateGameCommand,
-    ) {
-        game.update(command)
-    }
 }

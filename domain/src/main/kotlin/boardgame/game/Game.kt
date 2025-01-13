@@ -31,41 +31,35 @@ class Game internal constructor(
     }
 
     fun start() {
-        update(
-            GameDomainService.UpdateGameCommand(
-                status = Status.PROGRESS,
-            ),
-        )
+        if (this.status != Status.BEFORE_START) {
+            throw CustomException("게임을 시작할 수 없습니다", HttpStatus.BAD_REQUEST)
+        }
+        update(status = Status.PROGRESS)
     }
 
     fun endWith(winner: Player) {
-        update(
-            GameDomainService.UpdateGameCommand(
-                status = Status.END,
-                winner = winner,
-            ),
-        )
+        if (this.status != Status.PROGRESS) {
+            throw CustomException("시작하지 않은 게임입니다", HttpStatus.BAD_REQUEST)
+        }
+        winner.win()
+        update(status = Status.END, winner = winner)
     }
 
-    internal fun update(command: GameDomainService.UpdateGameCommand) {
-        command.status?.let {
+    private fun update(
+        status: Status? = null,
+        winner: Player? = null,
+    ) {
+        status?.let {
             if (players.size < 2) {
                 throw CustomException("게임 참가자가 2명이 아닙니다", HttpStatus.BAD_REQUEST)
             }
-            if (it == Status.PROGRESS && this.status != Status.BEFORE_START) {
-                throw CustomException("게임을 시작할 수 없습니다", HttpStatus.BAD_REQUEST)
-            }
-            if (it == Status.END && this.status != Status.PROGRESS) {
-                throw CustomException("시작하지 않은 게임입니다", HttpStatus.BAD_REQUEST)
-            }
             this.status = it
         }
-        command.winner?.let { winner ->
+        winner?.let {
             if (this.status != Status.END) {
                 throw CustomException("게임이 끝나지 않았습니다", HttpStatus.BAD_REQUEST)
             }
-            winner.win()
-            this.winner = winner
+            this.winner = it
         }
     }
 
