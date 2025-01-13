@@ -19,3 +19,18 @@ tasks.test {
 kotlin {
     jvmToolchain(21)
 }
+
+subprojects {
+    apply(plugin = "org.jetbrains.kotlin.jvm")
+    apply(plugin = "java-test-fixtures")
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        val kotestVersion = "5.9.1"
+        testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+        testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
+    }
+}
