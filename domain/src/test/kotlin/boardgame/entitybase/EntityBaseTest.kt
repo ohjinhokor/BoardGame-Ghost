@@ -20,12 +20,12 @@ class EntityBaseTest :
         val testEntity1 = TestEntity(binaryId, LocalDateTime.of(2024, 12, 31, 0, 0, 0), LocalDateTime.now())
         val testEntity2 = TestEntity(binaryId, LocalDateTime.of(2025, 1, 9, 0, 0, 0), LocalDateTime.now())
 
-        test("Equals Test : 다른 필드가 달라도 id가 같으면 동일한 Entity로 취급") {
+        test("Equals Test : id외의 다른 필드와 관계없이, id가 같으면 동일한 Entity로 취급") {
             (testEntity1 == testEntity2) shouldBe true
             testEntity1 shouldBe testEntity2
         }
 
-        test("Hashcode Test : 다른 필드가 달라도 id가 같으면 동일한 Entity로 취급") {
+        test("Hashcode Test : id외의 다른 필드와 관계없이, id가 같으면 동일한 Entity로 취급") {
             (testEntity1 in listOf(testEntity2)) shouldBe true
         }
     })
