@@ -5,6 +5,7 @@ import boardgame.entitybase.EntityBase
 import boardgame.exception.CustomException
 import boardgame.exception.HttpStatus
 import boardgame.player.Player
+import org.jetbrains.annotations.TestOnly
 import java.time.LocalDateTime
 import kotlin.math.abs
 
@@ -148,6 +149,19 @@ abstract class Escapee protected constructor(
     }
 
     private fun update(
+        status: Status? = null,
+        position: Position? = null,
+    ) {
+        status?.let { this.status = it }
+        position?.let { this.position = it }
+    }
+
+    /**
+     * 테스트 코드의 확장함수를 위해 internal로 열어둠.
+     * 비즈니스 로직에서 이 함수의 직접적인 호출은 지양함
+     */
+    @TestOnly
+    internal fun unsafeUpdate(
         status: Status? = null,
         position: Position? = null,
     ) {
