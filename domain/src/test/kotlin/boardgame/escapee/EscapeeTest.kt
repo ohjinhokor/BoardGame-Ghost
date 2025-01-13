@@ -1,46 +1,79 @@
 package boardgame.escapee
 
 import boardgame.exception.CustomException
-import boardgame.player.Player
+import escapee.EscapeeTestFixturesUtils
+import escapee.moveToAnyWhere
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
-import moveToAnyWhere
+import player.PlayerTestFixturesUtils
 
 class EscapeeTest :
     FunSpec({
+        val playerTestFixturesUtils: PlayerTestFixturesUtils = PlayerTestFixturesUtils()
+        val escapeeDomainService: EscapeeDomainService = EscapeeDomainService()
+        val escapeeTestFixturesUtils: EscapeeTestFixturesUtils = EscapeeTestFixturesUtils()
+
         test("처음 Escapee를 만들때, 정해진 위치 외에는 만들 수 없음") {
+            val player = playerTestFixturesUtils.createPlayer()
+            var outOfRangeRow = 6
             shouldThrow<CustomException> {
-                BlueEscapee(
-                    Escapee.Position.of(6, 1),
-                    Escapee.Index(1),
-                    Player(),
+                escapeeDomainService.createBlueEscapees(
+                    EscapeeDomainService.CreateEscapeesCommand(
+                        positions =
+                            listOf(
+                                Escapee.Position.of(outOfRangeRow, 1),
+                                Escapee.Position.of(5, 1),
+                                Escapee.Position.of(5, 2),
+                                Escapee.Position.of(5, 3),
+                            ),
+                        player = player,
+                    ),
                 )
             }
+
+            outOfRangeRow = -1
             shouldThrow<CustomException> {
-                BlueEscapee(
-                    Escapee.Position.of(-1, 1),
-                    Escapee.Index(2),
-                    Player(),
+                escapeeDomainService.createBlueEscapees(
+                    EscapeeDomainService.CreateEscapeesCommand(
+                        positions =
+                            listOf(
+                                Escapee.Position.of(outOfRangeRow, 1),
+                                Escapee.Position.of(6, 1),
+                                Escapee.Position.of(5, 1),
+                                Escapee.Position.of(5, 2),
+                            ),
+                        player = player,
+                    ),
                 )
             }
+
+            val notStartPositionRow = 3
             shouldThrow<CustomException> {
-                BlueEscapee(
-                    Escapee.Position.of(3, 1),
-                    Escapee.Index(3),
-                    Player(),
+                escapeeDomainService.createBlueEscapees(
+                    EscapeeDomainService.CreateEscapeesCommand(
+                        positions =
+                            listOf(
+                                Escapee.Position.of(notStartPositionRow, 1),
+                                Escapee.Position.of(6, 1),
+                                Escapee.Position.of(5, 1),
+                                Escapee.Position.of(5, 2),
+                            ),
+                        player = player,
+                    ),
                 )
             }
         }
 
         test("최대 이동 거리 제한이 있음") {
+            val player = playerTestFixturesUtils.createPlayer()
+
             val startRow = 5
             val startCol = 1
             val blueEscapee =
-                BlueEscapee(
-                    Escapee.Position.of(startRow, startCol),
-                    Escapee.Index(1),
-                    Player(),
+                escapeeTestFixturesUtils.createBlueEscapee(
+                    position = Escapee.Position.of(startRow, startCol),
+                    player = player,
                 )
 
             shouldThrow<CustomException> {
@@ -52,14 +85,16 @@ class EscapeeTest :
         }
 
         test("탈출 가능 위치에 제한이 있음") {
+            val player = playerTestFixturesUtils.createPlayer()
+
             val startRow = 5
             val startCol = 1
             val blueEscapee1 =
-                BlueEscapee(
-                    Escapee.Position.of(startRow, startCol),
-                    Escapee.Index(1),
-                    Player(),
+                escapeeTestFixturesUtils.createBlueEscapee(
+                    position = Escapee.Position.of(startRow, startCol),
+                    player = player,
                 )
+
             var escapableRow = 0
             var escapableCol = 5
             blueEscapee1.moveToAnyWhere(Escapee.Position.of(escapableRow, escapableCol))

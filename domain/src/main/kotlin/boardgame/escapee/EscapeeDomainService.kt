@@ -13,11 +13,11 @@ class EscapeeDomainService {
     )
 
     fun createRedEscapees(command: CreateEscapeesCommand): List<RedEscapee> =
-        command.positions.map {
+        command.positions.mapIndexed { index, position ->
             createEscapee(
                 CreateEscapeeCommand(
-                    position = it,
-                    index = Escapee.Index(1),
+                    position = position,
+                    index = Escapee.Index(index + 1),
                     player = command.player,
                     type = Escapee.Type.RED,
                 ),
@@ -25,11 +25,11 @@ class EscapeeDomainService {
         }
 
     fun createBlueEscapees(command: CreateEscapeesCommand): List<BlueEscapee> =
-        command.positions.map {
+        command.positions.mapIndexed { index, position ->
             createEscapee(
                 CreateEscapeeCommand(
-                    position = it,
-                    index = Escapee.Index(1),
+                    position = position,
+                    index = Escapee.Index(index + 1),
                     player = command.player,
                     type = Escapee.Type.BLUE,
                 ),
