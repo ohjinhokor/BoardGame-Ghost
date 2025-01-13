@@ -2,7 +2,6 @@ package boardgame.escapee
 
 import boardgame.entitybase.BinaryId
 import boardgame.entitybase.EntityBase
-import boardgame.escapee.Escapee.Position
 import boardgame.exception.CustomException
 import boardgame.exception.HttpStatus
 import boardgame.player.Player
@@ -59,15 +58,10 @@ abstract class Escapee protected constructor(
             )
     }
 
-    class Position private constructor(
-        row: Row,
-        column: Column,
+    data class Position private constructor(
+        val row: Row,
+        val column: Column,
     ) {
-        private var row: Row = row
-            private set
-        private var column: Column = column
-            private set
-
         fun getDistanceFrom(position: Position) = abs(position.row.value - this.row.value) + abs(position.column.value - this.column.value)
 
         companion object {
@@ -118,7 +112,7 @@ abstract class Escapee protected constructor(
     ) {
         init {
             if (value < minIndexValue || value > maxIndexValue) {
-                throw CustomException("${ESCAPEE_KOREAN_NAME}은 1부터 4까지만 만들 수 있습니다", HttpStatus.BAD_REQUEST)
+                throw CustomException("${ESCAPEE_KOREAN_NAME}은 색깔별로 4개씩만 만들 수 있습니다", HttpStatus.BAD_REQUEST)
             }
         }
     }
@@ -143,7 +137,7 @@ abstract class Escapee protected constructor(
 
     fun escape() {
         if (this.position in escapablePositions) {
-            this.status = Status.ESCAPE
+            update(status = Status.ESCAPE)
         } else {
             throw CustomException("탈출을 시도할 수 없는 위치입니다.", HttpStatus.BAD_REQUEST)
         }
@@ -153,7 +147,7 @@ abstract class Escapee protected constructor(
         update(status = Status.DEAD)
     }
 
-    fun update(
+    private fun update(
         status: Status? = null,
         position: Position? = null,
     ) {
