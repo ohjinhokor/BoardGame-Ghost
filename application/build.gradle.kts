@@ -12,6 +12,10 @@ repositories {
 dependencies {
     implementation(project(":domain"))
     testImplementation(kotlin("test"))
+    testImplementation(project(":domain"))
+    testImplementation(testFixtures(project(":domain")))
+    testFixturesImplementation(testFixtures(project(":infra")))
+    testFixturesImplementation(project(":domain"))
 }
 
 tasks.test {

@@ -9,9 +9,9 @@ class GameApplicationService(
     private val gameRepository: GameRepository,
     private val gameDomainService: GameDomainService,
 ) {
-    fun createGame(command: CreateGameCommand) {
+    fun createGame(command: CreateGameCommand): Game {
         val game = gameDomainService.createGame(command)
-        gameRepository.save(game)
+        return gameRepository.save(game)
     }
 
     fun addPlayer(
@@ -20,18 +20,12 @@ class GameApplicationService(
     ) {
         val game = gameRepository.getOrException(id)
         gameDomainService.addPlayer(AddPlayerCommand(game, player))
+        gameRepository.save(game)
     }
 
     fun startGame(id: BinaryId) {
         val game = gameRepository.getOrException(id)
         game.start()
-    }
-
-    fun endGame(
-        id: BinaryId,
-        winner: Player,
-    ) {
-        val game = gameRepository.getOrException(id)
-        game.endWith(winner)
+        gameRepository.save(game)
     }
 }
