@@ -1,12 +1,10 @@
 package boardgame.escapee
 
 import boardgame.exception.CustomException
-import escapee.EscapeeTestFixturesUtil
-import escapee.moveToAnyWhere
+import boardgame.player.PlayerTestFixturesUtil
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
-import player.PlayerTestFixturesUtil
 
 class EscapeeTest :
     FunSpec({
@@ -21,12 +19,12 @@ class EscapeeTest :
                 escapeeDomainService.createBlueEscapees(
                     EscapeeDomainService.CreateEscapeesCommand(
                         positions =
-                            listOf(
-                                Escapee.Position.of(outOfRangeRow, 1),
-                                Escapee.Position.of(5, 1),
-                                Escapee.Position.of(5, 2),
-                                Escapee.Position.of(5, 3),
-                            ),
+                        listOf(
+                            Escapee.Position.of(outOfRangeRow, 1),
+                            Escapee.Position.of(5, 1),
+                            Escapee.Position.of(5, 2),
+                            Escapee.Position.of(5, 3),
+                        ),
                         player = player,
                     ),
                 )
@@ -37,12 +35,12 @@ class EscapeeTest :
                 escapeeDomainService.createBlueEscapees(
                     EscapeeDomainService.CreateEscapeesCommand(
                         positions =
-                            listOf(
-                                Escapee.Position.of(outOfRangeRow, 1),
-                                Escapee.Position.of(6, 1),
-                                Escapee.Position.of(5, 1),
-                                Escapee.Position.of(5, 2),
-                            ),
+                        listOf(
+                            Escapee.Position.of(outOfRangeRow, 1),
+                            Escapee.Position.of(6, 1),
+                            Escapee.Position.of(5, 1),
+                            Escapee.Position.of(5, 2),
+                        ),
                         player = player,
                     ),
                 )
@@ -53,12 +51,12 @@ class EscapeeTest :
                 escapeeDomainService.createBlueEscapees(
                     EscapeeDomainService.CreateEscapeesCommand(
                         positions =
-                            listOf(
-                                Escapee.Position.of(notStartPositionRow, 1),
-                                Escapee.Position.of(6, 1),
-                                Escapee.Position.of(5, 1),
-                                Escapee.Position.of(5, 2),
-                            ),
+                        listOf(
+                            Escapee.Position.of(notStartPositionRow, 1),
+                            Escapee.Position.of(6, 1),
+                            Escapee.Position.of(5, 1),
+                            Escapee.Position.of(5, 2),
+                        ),
                         player = player,
                     ),
                 )
@@ -101,11 +99,16 @@ class EscapeeTest :
             blueEscapee1.escape()
             blueEscapee1.status shouldBe Escapee.Status.ESCAPE
 
+            val blueEscapee2 =
+                escapeeTestFixturesUtil.createBlueEscapee(
+                    position = Escapee.Position.of(startRow, startCol),
+                    player = player,
+                )
             escapableRow = 0
             escapableCol = 0
-            blueEscapee1.moveToAnyWhere(Escapee.Position.of(escapableRow, escapableCol))
-            blueEscapee1.escape()
-            blueEscapee1.status shouldBe Escapee.Status.ESCAPE
+            blueEscapee2.moveToAnyWhere(Escapee.Position.of(escapableRow, escapableCol))
+            blueEscapee2.escape()
+            blueEscapee2.status shouldBe Escapee.Status.ESCAPE
 
             val notEscapableRow = 1
             val notEscapableCol = 4
