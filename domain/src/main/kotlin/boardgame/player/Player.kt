@@ -18,10 +18,10 @@ class Player internal constructor(
     nickname: Nickname,
     joinedGame: Game?,
 ) : EntityBase(
-        id = id,
-        createdAt = createdAt,
-        updatedAt = updatedAt,
-    ) {
+    id = id,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+) {
     companion object {
         val RED_ESCAPEE_SIZE = 4
         val BLUE_ESCAPEE_SIZE = 4
@@ -79,13 +79,19 @@ class Player internal constructor(
 
     internal fun lose() = loseCount++
 
+    fun joinGame(game: Game) {
+        update(UpdatePlayerCommand(joinedGame = game))
+    }
+
     fun updateNickname(nickname: Nickname) = run { update(UpdatePlayerCommand(nickname = nickname)) }
 
     data class UpdatePlayerCommand(
         val nickname: Nickname? = null,
+        val joinedGame: Game? = null
     )
 
     private fun update(command: UpdatePlayerCommand) {
         command.nickname?.let { this.nickname = it }
+        command.joinedGame?.let { this.joinedGame = it }
     }
 }

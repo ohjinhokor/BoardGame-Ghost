@@ -1,14 +1,14 @@
 package boardgame.player
 
 import boardgame.entitybase.BinaryId
-import boardgame.escapee.Escapee
-import boardgame.escapee.EscapeeDomainService
+import boardgame.escapee.BlueEscapee
+import boardgame.escapee.RedEscapee
+import boardgame.exception.CustomException
+import boardgame.exception.HttpStatus
 import boardgame.player.Player.Nickname
 import java.time.LocalDateTime
 
 class PlayerDomainService(
-    val playerRepository: PlayerRepository,
-    val escapeeDomainService: EscapeeDomainService,
 ) {
     data class CreatePlayerCommand(
         val nickname: Nickname,
@@ -25,24 +25,9 @@ class PlayerDomainService(
 
     fun addEscapees(
         player: Player,
-        bluePositions: List<Escapee.Position>,
-        redPositions: List<Escapee.Position>,
+        blueEscapees: List<BlueEscapee>,
+        redEscapees: List<RedEscapee>,
     ) {
-        val blueEscapees =
-            escapeeDomainService.createBlueEscapees(
-                EscapeeDomainService.CreateEscapeesCommand(
-                    positions = bluePositions,
-                    player = player,
-                ),
-            )
-        val redEscapees =
-            escapeeDomainService.createRedEscapees(
-                EscapeeDomainService.CreateEscapeesCommand(
-                    positions = redPositions,
-                    player = player,
-                ),
-            )
-
         player.addEscapee(blueEscapees = blueEscapees, redEscapees = redEscapees)
     }
 
@@ -52,7 +37,12 @@ class PlayerDomainService(
     ) {
         winner.win()
         loser.lose()
-        playerRepository.save(winner)
-        playerRepository.save(loser)
+    }
+
+    fun findLoser(
+        winner: Player,
+    ): Player {
+        val game = winner.joinedGame ?: throw CustomException("플레이어가 참여하고 있는 게임이 없습니다", HttpStatus.BAD_REQUEST)
+        return game.players.first { it != winner }
     }
 }

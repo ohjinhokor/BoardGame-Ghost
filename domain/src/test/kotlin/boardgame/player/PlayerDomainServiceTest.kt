@@ -1,10 +1,8 @@
 package boardgame.player
 
 import boardgame.player.Player.Nickname
-import boardgame.player.PlayerDomainService.UpdatePlayerCommand
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
-import player.PlayerTestFixturesUtil
 
 class PlayerDomainServiceTest :
     FunSpec({
@@ -21,7 +19,7 @@ class PlayerDomainServiceTest :
             val player = testFixtures.createPlayer()
 
             val newNickname = Nickname("nickname2")
-            domainService.updatePlayer(player, UpdatePlayerCommand(nickname = newNickname))
+            player.updateNickname(newNickname)
             player.nickname shouldBe newNickname
         }
 

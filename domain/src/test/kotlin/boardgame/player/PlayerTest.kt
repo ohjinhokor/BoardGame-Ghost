@@ -7,7 +7,6 @@ import boardgame.player.Player.Companion.BLUE_ESCAPEE_SIZE
 import boardgame.player.Player.Companion.RED_ESCAPEE_SIZE
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
-import player.PlayerTestFixturesUtil
 
 class PlayerTest :
     FunSpec({
@@ -27,12 +26,12 @@ class PlayerTest :
                 escapeeDomainService.createBlueEscapees(
                     EscapeeDomainService.CreateEscapeesCommand(
                         positions =
-                            listOf(
-                                Position.of(4, 1),
-                                Position.of(4, 2),
-                                Position.of(4, 3),
-                                Position.of(4, 4),
-                            ),
+                        listOf(
+                            Position.of(4, 1),
+                            Position.of(4, 2),
+                            Position.of(4, 3),
+                            Position.of(4, 4),
+                        ),
                         player = player,
                     ),
                 )
@@ -41,11 +40,11 @@ class PlayerTest :
                 escapeeDomainService.createRedEscapees(
                     EscapeeDomainService.CreateEscapeesCommand(
                         positions =
-                            listOf(
-                                Position.of(5, 1),
-                                Position.of(5, 2),
-                                Position.of(5, 3),
-                            ),
+                        listOf(
+                            Position.of(5, 1),
+                            Position.of(5, 2),
+                            Position.of(5, 3),
+                        ),
                         player = player,
                     ),
                 )
@@ -62,11 +61,11 @@ class PlayerTest :
                 escapeeDomainService.createBlueEscapees(
                     EscapeeDomainService.CreateEscapeesCommand(
                         positions =
-                            listOf(
-                                Position.of(4, 1),
-                                Position.of(4, 2),
-                                Position.of(4, 3),
-                            ),
+                        listOf(
+                            Position.of(4, 1),
+                            Position.of(4, 2),
+                            Position.of(4, 3),
+                        ),
                         player = player,
                     ),
                 )
@@ -75,12 +74,12 @@ class PlayerTest :
                 escapeeDomainService.createRedEscapees(
                     EscapeeDomainService.CreateEscapeesCommand(
                         positions =
-                            listOf(
-                                Position.of(5, 1),
-                                Position.of(5, 2),
-                                Position.of(5, 3),
-                                Position.of(5, 4),
-                            ),
+                        listOf(
+                            Position.of(5, 1),
+                            Position.of(5, 2),
+                            Position.of(5, 3),
+                            Position.of(5, 4),
+                        ),
                         player = player,
                     ),
                 )
@@ -97,12 +96,12 @@ class PlayerTest :
                 escapeeDomainService.createBlueEscapees(
                     EscapeeDomainService.CreateEscapeesCommand(
                         positions =
-                            listOf(
-                                Position.of(4, 1),
-                                Position.of(4, 2),
-                                Position.of(4, 3),
-                                Position.of(4, 4),
-                            ),
+                        listOf(
+                            Position.of(4, 1),
+                            Position.of(4, 2),
+                            Position.of(4, 3),
+                            Position.of(4, 4),
+                        ),
                         player = player,
                     ),
                 )
@@ -111,12 +110,12 @@ class PlayerTest :
                 escapeeDomainService.createRedEscapees(
                     EscapeeDomainService.CreateEscapeesCommand(
                         positions =
-                            listOf(
-                                Position.of(5, 1),
-                                Position.of(5, 2),
-                                Position.of(5, 3),
-                                Position.of(5, 4),
-                            ),
+                        listOf(
+                            Position.of(5, 1),
+                            Position.of(5, 2),
+                            Position.of(5, 3),
+                            Position.of(5, 4),
+                        ),
                         player = player,
                     ),
                 )
@@ -126,12 +125,12 @@ class PlayerTest :
                 escapeeDomainService.createRedEscapees(
                     EscapeeDomainService.CreateEscapeesCommand(
                         positions =
-                            listOf(
-                                Position.of(5, 1),
-                                Position.of(5, 2),
-                                Position.of(5, 3),
-                                Position.of(5, 4),
-                            ),
+                        listOf(
+                            Position.of(5, 1),
+                            Position.of(5, 2),
+                            Position.of(5, 3),
+                            Position.of(5, 4),
+                        ),
                         player = player,
                     ),
                 )
