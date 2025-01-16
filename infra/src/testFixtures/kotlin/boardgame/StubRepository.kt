@@ -3,7 +3,7 @@ package boardgame
 import boardgame.common.Repository
 import boardgame.entitybase.BinaryId
 import boardgame.entitybase.EntityBase
-import java.util.Optional
+import java.util.*
 
 abstract class StubRepository<ENTITY : EntityBase> : Repository<ENTITY> {
     val database = mutableMapOf<BinaryId, ENTITY>()
@@ -24,5 +24,12 @@ abstract class StubRepository<ENTITY : EntityBase> : Repository<ENTITY> {
     override fun save(entity: ENTITY): ENTITY {
         database[entity.id] = entity
         return database[entity.id]!!
+    }
+
+    override fun saveAll(entities: List<ENTITY>): List<ENTITY> {
+        return entities.map {
+            database[it.id] = it
+            it
+        }
     }
 }

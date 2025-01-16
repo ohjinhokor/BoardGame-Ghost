@@ -15,6 +15,7 @@ dependencies {
     testImplementation(project(":domain"))
     testImplementation(testFixtures(project(":domain")))
     testFixturesImplementation(testFixtures(project(":infra")))
+    testFixturesImplementation(testFixtures(project(":domain")))
     testFixturesImplementation(project(":domain"))
 }
 
