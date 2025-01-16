@@ -8,7 +8,7 @@ import boardgame.escapee.Escapee
 import boardgame.escapee.RedEscapee
 import boardgame.exception.CustomException
 import boardgame.exception.HttpStatus
-import boardgame.player.PlayerDomainService.UpdatePlayerCommand
+import boardgame.game.Game
 import java.time.LocalDateTime
 
 class Player internal constructor(
@@ -16,6 +16,7 @@ class Player internal constructor(
     createdAt: LocalDateTime,
     updatedAt: LocalDateTime,
     nickname: Nickname,
+    joinedGame: Game?,
 ) : EntityBase(
         id = id,
         createdAt = createdAt,
@@ -35,6 +36,9 @@ class Player internal constructor(
     var loseCount: Int = 0
         private set
 
+    var joinedGame: Game? = joinedGame
+        private set
+
     val escapees: MutableList<Escapee> = mutableListOf()
 
     @JvmInline
@@ -51,7 +55,7 @@ class Player internal constructor(
         }
     }
 
-    fun addEscapee(
+    internal fun addEscapee(
         redEscapees: List<RedEscapee>,
         blueEscapees: List<BlueEscapee>,
     ) {
@@ -71,11 +75,17 @@ class Player internal constructor(
         blueEscapees.forEach { this.escapees.add(it) }
     }
 
-    fun win() = winCount++
+    internal fun win() = winCount++
 
-    fun lose() = loseCount++
+    internal fun lose() = loseCount++
 
-    fun update(command: UpdatePlayerCommand) {
+    fun updateNickname(nickname: Nickname) = run { update(UpdatePlayerCommand(nickname = nickname)) }
+
+    data class UpdatePlayerCommand(
+        val nickname: Nickname? = null,
+    )
+
+    private fun update(command: UpdatePlayerCommand) {
         command.nickname?.let { this.nickname = it }
     }
 }
