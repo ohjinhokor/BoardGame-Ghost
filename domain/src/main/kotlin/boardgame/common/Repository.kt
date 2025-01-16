@@ -23,5 +23,7 @@ interface Repository<Entity : EntityBase> {
 
     fun save(entity: Entity): Entity
 
+    fun saveAll(entities: List<Entity>): List<Entity>
+
     fun delete(entity: Entity)
 }
