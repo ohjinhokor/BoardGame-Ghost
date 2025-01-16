@@ -15,7 +15,7 @@ fun Escapee.moveToAnyWhere(position: Escapee.Position) {
     unsafeUpdate(position = position)
 }
 
-class EscapeeTestFixturesUtils {
+class EscapeeTestFixturesUtil {
     fun createBlueEscapee(
         position: Escapee.Position,
         player: Player,

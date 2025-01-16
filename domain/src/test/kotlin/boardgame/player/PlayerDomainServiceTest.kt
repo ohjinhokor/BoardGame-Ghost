@@ -4,11 +4,11 @@ import boardgame.player.Player.Nickname
 import boardgame.player.PlayerDomainService.UpdatePlayerCommand
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
-import player.PlayerTestFixturesUtils
+import player.PlayerTestFixturesUtil
 
 class PlayerDomainServiceTest :
     FunSpec({
-        val testFixtures = PlayerTestFixturesUtils()
+        val testFixtures = PlayerTestFixturesUtil()
         val domainService = PlayerDomainService()
 
         test("createPlayer") {

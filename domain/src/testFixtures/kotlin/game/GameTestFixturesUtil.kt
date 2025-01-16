@@ -5,7 +5,7 @@ import boardgame.game.Game
 import boardgame.player.Player
 import java.time.LocalDateTime
 
-class GameTestFixturesUtils {
+class GameTestFixturesUtil {
     fun createGame(player: Player) =
         Game(
             id = BinaryId.new(),

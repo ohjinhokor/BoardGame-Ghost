@@ -7,14 +7,14 @@ import boardgame.player.Player.Companion.BLUE_ESCAPEE_SIZE
 import boardgame.player.Player.Companion.RED_ESCAPEE_SIZE
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
-import player.PlayerTestFixturesUtils
+import player.PlayerTestFixturesUtil
 
 class PlayerTest :
     FunSpec({
-        val testFixtures = PlayerTestFixturesUtils()
+        val testFixtures = PlayerTestFixturesUtil()
         val escapeeDomainService = EscapeeDomainService()
         test("nickname 길이 테스트") {
-            var nicknameLengthIsLonger = "this_is_too_long_nickname_for_this_board_game"
+            val nicknameLengthIsLonger = "this_is_too_long_nickname_for_this_board_game"
             shouldThrow<CustomException> {
                 Player.Nickname(nicknameLengthIsLonger)
             }

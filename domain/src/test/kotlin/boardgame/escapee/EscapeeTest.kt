@@ -1,21 +1,21 @@
 package boardgame.escapee
 
 import boardgame.exception.CustomException
-import escapee.EscapeeTestFixturesUtils
+import escapee.EscapeeTestFixturesUtil
 import escapee.moveToAnyWhere
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
-import player.PlayerTestFixturesUtils
+import player.PlayerTestFixturesUtil
 
 class EscapeeTest :
     FunSpec({
-        val playerTestFixturesUtils: PlayerTestFixturesUtils = PlayerTestFixturesUtils()
+        val playerTestFixturesUtil: PlayerTestFixturesUtil = PlayerTestFixturesUtil()
         val escapeeDomainService: EscapeeDomainService = EscapeeDomainService()
-        val escapeeTestFixturesUtils: EscapeeTestFixturesUtils = EscapeeTestFixturesUtils()
+        val escapeeTestFixturesUtil: EscapeeTestFixturesUtil = EscapeeTestFixturesUtil()
 
         test("처음 Escapee를 만들때, 정해진 위치 외에는 만들 수 없음") {
-            val player = playerTestFixturesUtils.createPlayer()
+            val player = playerTestFixturesUtil.createPlayer()
             var outOfRangeRow = 6
             shouldThrow<CustomException> {
                 escapeeDomainService.createBlueEscapees(
@@ -66,12 +66,12 @@ class EscapeeTest :
         }
 
         test("최대 이동 거리 제한이 있음") {
-            val player = playerTestFixturesUtils.createPlayer()
+            val player = playerTestFixturesUtil.createPlayer()
 
             val startRow = 5
             val startCol = 1
             val blueEscapee =
-                escapeeTestFixturesUtils.createBlueEscapee(
+                escapeeTestFixturesUtil.createBlueEscapee(
                     position = Escapee.Position.of(startRow, startCol),
                     player = player,
                 )
@@ -85,12 +85,12 @@ class EscapeeTest :
         }
 
         test("탈출 가능 위치에 제한이 있음") {
-            val player = playerTestFixturesUtils.createPlayer()
+            val player = playerTestFixturesUtil.createPlayer()
 
             val startRow = 5
             val startCol = 1
             val blueEscapee1 =
-                escapeeTestFixturesUtils.createBlueEscapee(
+                escapeeTestFixturesUtil.createBlueEscapee(
                     position = Escapee.Position.of(startRow, startCol),
                     player = player,
                 )
