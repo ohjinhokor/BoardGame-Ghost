@@ -10,6 +10,7 @@ repositories {
 }
 
 dependencies {
+    implementation("io.projectreactor:reactor-core:3.7.2")
     implementation("com.aallam.ulid:ulid-kotlin:1.3.0")
     testImplementation(kotlin("test"))
 }
