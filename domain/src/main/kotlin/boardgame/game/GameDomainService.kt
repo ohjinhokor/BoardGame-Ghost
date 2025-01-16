@@ -19,4 +19,14 @@ class GameDomainService {
             title = command.title,
             gameCreator = command.gameCreator,
         )
+
+    data class AddPlayerCommand(
+        val game: Game,
+        val player: Player,
+    )
+
+    fun addPlayer(command: AddPlayerCommand) {
+        val (game, player) = command
+        game.addPlayer(player)
+    }
 }
