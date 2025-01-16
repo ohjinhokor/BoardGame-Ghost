@@ -14,10 +14,10 @@ class Game internal constructor(
     val title: Title,
     val gameCreator: Player,
 ) : EntityBase(
-        id = id,
-        createdAt = createdAt,
-        updatedAt = updatedAt,
-    ) {
+    id = id,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+) {
     private val _players: MutableList<Player> = mutableListOf()
     val players: List<Player>
         get() = _players.toList()
@@ -37,11 +37,10 @@ class Game internal constructor(
         update(status = Status.PROGRESS)
     }
 
-    fun endWith(winner: Player) {
+    fun end(winner: Player) {
         if (this.status != Status.PROGRESS) {
             throw CustomException("시작하지 않은 게임입니다", HttpStatus.BAD_REQUEST)
         }
-        winner.win()
         update(status = Status.END, winner = winner)
     }
 

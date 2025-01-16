@@ -1,11 +1,10 @@
 package boardgame.game
 
 import boardgame.exception.CustomException
-import game.GameTestFixturesUtil
+import boardgame.player.PlayerTestFixturesUtil
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
-import player.PlayerTestFixturesUtil
 
 class GameTest :
     FunSpec({
@@ -75,18 +74,16 @@ class GameTest :
             game.addPlayer(playerTestFixturesUtil.createPlayer())
 
             shouldThrow<CustomException> {
-                game.endWith(player)
+                game.end(player)
             }
         }
 
         test("게임이 끝나면 우승자가 저장된다") {
             val game = gameTestFixturesUtil.createGame(player)
             game.addPlayer(playerTestFixturesUtil.createPlayer())
-            val playerWinCount = player.winCount
 
             game.start()
-            game.endWith(player)
+            game.end(player)
             game.winner shouldBe player
-            game.winner?.winCount shouldBe playerWinCount + 1
         }
     })
