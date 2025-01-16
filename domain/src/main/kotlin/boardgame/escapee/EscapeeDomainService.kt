@@ -17,7 +17,6 @@ class EscapeeDomainService {
             createEscapee(
                 CreateEscapeeCommand(
                     position = position,
-                    index = Escapee.Index(index + 1),
                     player = command.player,
                     type = Escapee.Type.RED,
                 ),
@@ -29,7 +28,6 @@ class EscapeeDomainService {
             createEscapee(
                 CreateEscapeeCommand(
                     position = position,
-                    index = Escapee.Index(index + 1),
                     player = command.player,
                     type = Escapee.Type.BLUE,
                 ),
@@ -38,7 +36,6 @@ class EscapeeDomainService {
 
     data class CreateEscapeeCommand(
         val position: Escapee.Position,
-        val index: Escapee.Index,
         val player: Player,
         val type: Escapee.Type,
     )
@@ -50,7 +47,6 @@ class EscapeeDomainService {
                 createdAt = LocalDateTime.now(),
                 updatedAt = LocalDateTime.now(),
                 position = command.position,
-                index = command.index,
                 player = command.player,
             )
         }
@@ -60,7 +56,6 @@ class EscapeeDomainService {
                 createdAt = LocalDateTime.now(),
                 updatedAt = LocalDateTime.now(),
                 position = command.position,
-                index = command.index,
                 player = command.player,
             )
         }

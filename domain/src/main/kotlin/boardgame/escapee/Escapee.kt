@@ -18,7 +18,6 @@ abstract class Escapee protected constructor(
     updatedAt: LocalDateTime,
     position: Position,
     status: Status,
-    val index: Index,
     val player: Player,
     val type: Type,
 ) : EntityBase(
@@ -43,8 +42,6 @@ abstract class Escapee protected constructor(
         val maxRowValue = 5
         val minColumnValue = 0
         val maxColumnValue = 5
-        val minIndexValue = 1
-        val maxIndexValue = 4
         val escapablePositions = listOf(Position.of(0, 0), Position.of(0, 5))
         val startPositions =
             listOf(
@@ -107,17 +104,6 @@ abstract class Escapee protected constructor(
         }
     }
 
-    @JvmInline
-    value class Index(
-        private val value: Int,
-    ) {
-        init {
-            if (value < minIndexValue || value > maxIndexValue) {
-                throw CustomException("${ESCAPEE_KOREAN_NAME}은 색깔별로 4개씩만 만들 수 있습니다", HttpStatus.BAD_REQUEST)
-            }
-        }
-    }
-
     enum class Type {
         BLUE,
         RED,
@@ -137,11 +123,16 @@ abstract class Escapee protected constructor(
     }
 
     fun escape() {
-        if (this.position in escapablePositions) {
-            update(status = Status.ESCAPE)
-        } else {
+        if (this.type == Type.RED) {
+            throw CustomException("탈출할 수 없는 색깔입니다.", HttpStatus.BAD_REQUEST)
+        }
+        if (this.status != Status.ALIVE) {
+            throw CustomException("이미 죽은 탈출인입니다.", HttpStatus.BAD_REQUEST)
+        }
+        if (this.position !in escapablePositions) {
             throw CustomException("탈출을 시도할 수 없는 위치입니다.", HttpStatus.BAD_REQUEST)
         }
+        update(status = Status.ESCAPE)
     }
 
     fun die() {
