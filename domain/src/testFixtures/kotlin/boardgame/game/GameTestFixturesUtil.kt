@@ -1,7 +1,6 @@
-package game
+package boardgame.game
 
 import boardgame.entitybase.BinaryId
-import boardgame.game.Game
 import boardgame.player.Player
 import java.time.LocalDateTime
 

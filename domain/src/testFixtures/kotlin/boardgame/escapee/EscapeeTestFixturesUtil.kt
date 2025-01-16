@@ -1,9 +1,6 @@
-package escapee
+package boardgame.escapee
 
 import boardgame.entitybase.BinaryId
-import boardgame.escapee.BlueEscapee
-import boardgame.escapee.Escapee
-import boardgame.escapee.RedEscapee
 import boardgame.player.Player
 import java.time.LocalDateTime
 
@@ -11,6 +8,9 @@ import java.time.LocalDateTime
  Test Fixtures Utils
  원래는 1칸씩만 움직일 수 있으나, test를 위해서 어디로나 움직일 수 있도록
  */
+val ESCAPABLE_ROW = 0
+val ESCAPABLE_COLUMN = 0
+
 fun Escapee.moveToAnyWhere(position: Escapee.Position) {
     unsafeUpdate(position = position)
 }
@@ -24,7 +24,6 @@ class EscapeeTestFixturesUtil {
         createdAt = LocalDateTime.now(),
         updatedAt = LocalDateTime.now(),
         position = position,
-        index = Escapee.Index(1),
         player = player,
     )
 
@@ -36,7 +35,6 @@ class EscapeeTestFixturesUtil {
         createdAt = LocalDateTime.now(),
         updatedAt = LocalDateTime.now(),
         position = position,
-        index = Escapee.Index(1),
         player = player,
     )
 }
