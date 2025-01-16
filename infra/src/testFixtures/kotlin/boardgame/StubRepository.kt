@@ -21,5 +21,8 @@ abstract class StubRepository<ENTITY : EntityBase> : Repository<ENTITY> {
         database.remove(entity.id)
     }
 
-    override fun save(entity: ENTITY): ENTITY = database.put(entity.id, entity)!!
+    override fun save(entity: ENTITY): ENTITY {
+        database[entity.id] = entity
+        return database[entity.id]!!
+    }
 }
