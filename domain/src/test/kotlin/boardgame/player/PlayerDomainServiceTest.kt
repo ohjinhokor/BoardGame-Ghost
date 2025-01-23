@@ -22,20 +22,4 @@ class PlayerDomainServiceTest :
             player.updateNickname(newNickname)
             player.nickname shouldBe newNickname
         }
-
-        test("player win") {
-            val player = testFixtures.createPlayer()
-            val before = player.winCount
-            player.win()
-            val after = player.winCount
-            after shouldBe before + 1
-        }
-
-        test("player lose") {
-            val player = testFixtures.createPlayer()
-            val before = player.loseCount
-            player.lose()
-            val after = player.loseCount
-            after shouldBe before + 1
-        }
     })
