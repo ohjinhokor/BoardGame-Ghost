@@ -1,4 +1,4 @@
-package boardgame.event
+package boardgame.core.event
 
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Sinks

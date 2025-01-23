@@ -1,4 +1,4 @@
-package boardgame.entitybase
+package boardgame.core.entitybase
 
 import java.time.LocalDateTime
 

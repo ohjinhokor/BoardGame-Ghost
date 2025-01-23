@@ -1,4 +1,4 @@
-package boardgame.exception
+package boardgame.core.exception
 
 enum class HttpStatus {
     BAD_REQUEST,

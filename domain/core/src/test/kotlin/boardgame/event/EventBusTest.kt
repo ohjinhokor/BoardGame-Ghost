@@ -1,5 +1,7 @@
 package boardgame.event
 
+import boardgame.core.event.Event
+import boardgame.core.event.EventBus
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 

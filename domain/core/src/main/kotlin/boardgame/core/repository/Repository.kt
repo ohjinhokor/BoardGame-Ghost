@@ -1,9 +1,9 @@
-package boardgame.common
+package boardgame.core.repository
 
-import boardgame.entitybase.BinaryId
-import boardgame.entitybase.EntityBase
-import boardgame.exception.CustomException
-import boardgame.exception.HttpStatus
+import boardgame.core.entitybase.BinaryId
+import boardgame.core.entitybase.EntityBase
+import boardgame.core.exception.CustomException
+import boardgame.core.exception.HttpStatus
 import java.util.*
 import kotlin.jvm.optionals.getOrNull
 

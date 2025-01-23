@@ -1,5 +1,7 @@
 package boardgame.entitybase
 
+import boardgame.core.entitybase.BinaryId
+import boardgame.core.entitybase.EntityBase
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import java.time.LocalDateTime
@@ -9,10 +11,10 @@ class TestEntity(
     createdAt: LocalDateTime,
     updatedAt: LocalDateTime,
 ) : EntityBase(
-        id = id,
-        createdAt = createdAt,
-        updatedAt = updatedAt,
-    )
+    id = id,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)
 
 class EntityBaseTest :
     FunSpec({

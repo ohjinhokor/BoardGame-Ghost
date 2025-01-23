@@ -1,7 +1,7 @@
-package boardgame.entitybase
+package boardgame.core.entitybase
 
-import boardgame.exception.CustomException
-import boardgame.exception.HttpStatus
+import boardgame.core.exception.CustomException
+import boardgame.core.exception.HttpStatus
 import ulid.ULID
 
 @JvmInline

@@ -1,4 +1,4 @@
-package boardgame.core
+package boardgame
 
 fun <T> T?.shouldSuccess(): T {
     if (this == null) throw AssertionError()
