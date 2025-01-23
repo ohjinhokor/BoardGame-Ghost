@@ -12,6 +12,10 @@ include("infra")
 include("domain:game")
 findProject(":domain:game")?.name = "game"
 
-//core
+// core
 include("domain:core")
 findProject(":domain:core")?.name = "core"
+
+// player
+include("domain:player")
+findProject(":domain:player")?.name = "player"
