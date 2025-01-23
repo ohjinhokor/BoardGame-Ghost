@@ -50,7 +50,7 @@ class Game internal constructor(
 
     enum class Status {
         BEFORE_START,
-        END,
         PROGRESS,
+        END,
     }
 }

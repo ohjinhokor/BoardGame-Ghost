@@ -4,7 +4,10 @@ import boardgame.core.entitybase.BinaryId
 import boardgame.game.Game.Title
 import java.time.LocalDateTime
 
-class GameDomainService {
+class GameDomainService(
+    private val gameRepository: GameRepository,
+    private val gameResultRepository: GameResultRepository,
+) {
     data class CreateGameCommand(
         val title: Title,
     )
@@ -39,7 +42,7 @@ class GameDomainService {
         val loserId: BinaryId,
     )
 
-    fun end(command: EndCommand): Pair<Game, GameResult> {
+    fun end(command: EndCommand) {
         command.game.end()
         val gameResult =
             createGameResult(
@@ -50,6 +53,7 @@ class GameDomainService {
                 ),
             )
 
-        return Pair(command.game, gameResult)
+        gameRepository.save(command.game)
+        gameResultRepository.save(gameResult)
     }
 }

@@ -11,8 +11,8 @@ repositories {
 
 dependencies {
     implementation(project(":domain:core"))
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation(testFixtures(project(":domain:core")))
+    testFixturesImplementation(testFixtures(project(":domain:core")))
 }
 
 tasks.test {
