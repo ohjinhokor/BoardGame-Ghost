@@ -83,15 +83,21 @@ class Player internal constructor(
         update(UpdatePlayerCommand(joinedGame = game))
     }
 
+    fun quitGame() {
+        update(UpdatePlayerCommand(quitGame = true))
+    }
+
     fun updateNickname(nickname: Nickname) = run { update(UpdatePlayerCommand(nickname = nickname)) }
 
     data class UpdatePlayerCommand(
         val nickname: Nickname? = null,
-        val joinedGame: Game? = null
+        val joinedGame: Game? = null,
+        val quitGame: Boolean? = null
     )
 
     private fun update(command: UpdatePlayerCommand) {
         command.nickname?.let { this.nickname = it }
         command.joinedGame?.let { this.joinedGame = it }
+        command.quitGame?.let { this.joinedGame = null }
     }
 }
