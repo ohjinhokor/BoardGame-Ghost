@@ -8,6 +8,10 @@ include("application")
 include("domain")
 include("infra")
 
+// game
+include("domain:game")
+findProject(":domain:game")?.name = "game"
+
 //core
 include("domain:core")
 findProject(":domain:core")?.name = "core"

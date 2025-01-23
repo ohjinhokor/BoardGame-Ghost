@@ -1,5 +1,5 @@
 package boardgame.game
 
-import boardgame.common.Repository
+import boardgame.core.repository.Repository
 
 interface GameRepository : Repository<Game>
