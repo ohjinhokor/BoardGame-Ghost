@@ -1,12 +1,12 @@
-package boardgame
+package boardgame.stub
 
-import boardgame.common.Repository
-import boardgame.entitybase.BinaryId
-import boardgame.entitybase.EntityBase
+import boardgame.core.entitybase.BinaryId
+import boardgame.core.entitybase.EntityBase
+import boardgame.core.repository.Repository
 import java.util.*
 
 abstract class StubRepository<ENTITY : EntityBase> : Repository<ENTITY> {
-    val database = mutableMapOf<BinaryId, ENTITY>()
+    protected val database = mutableMapOf<BinaryId, ENTITY>()
 
     override fun findById(id: BinaryId): Optional<ENTITY> {
         val entity: ENTITY = database.get(id) ?: return Optional.empty()
@@ -26,10 +26,9 @@ abstract class StubRepository<ENTITY : EntityBase> : Repository<ENTITY> {
         return database[entity.id]!!
     }
 
-    override fun saveAll(entities: List<ENTITY>): List<ENTITY> {
-        return entities.map {
+    override fun saveAll(entities: List<ENTITY>): List<ENTITY> =
+        entities.map {
             database[it.id] = it
             it
         }
-    }
 }
