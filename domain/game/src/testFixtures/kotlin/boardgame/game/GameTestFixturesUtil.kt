@@ -5,10 +5,12 @@ import java.time.LocalDateTime
 
 class GameTestFixturesUtil {
     fun createGame() =
-        Game(
-            id = BinaryId.new(),
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now(),
-            title = Game.Title("제목"),
+        StubGameRepository.save(
+            Game(
+                id = BinaryId.new(),
+                createdAt = LocalDateTime.now(),
+                updatedAt = LocalDateTime.now(),
+                title = Game.Title("제목"),
+            ),
         )
 }
