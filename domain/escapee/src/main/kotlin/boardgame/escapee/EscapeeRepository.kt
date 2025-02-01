@@ -1,5 +1,5 @@
 package boardgame.escapee
 
-import boardgame.common.Repository
+import boardgame.core.repository.Repository
 
 interface EscapeeRepository : Repository<Escapee>

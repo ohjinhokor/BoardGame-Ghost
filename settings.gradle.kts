@@ -14,3 +14,5 @@ include("domain:core")
 findProject(":domain:core")?.name = "core"
 include("domain:player")
 findProject(":domain:player")?.name = "player"
+include("domain:escapee")
+findProject(":domain:escapee")?.name = "escapee"

@@ -1,11 +1,11 @@
 package boardgame.escapee
 
-import boardgame.entitybase.BinaryId
-import boardgame.entitybase.EntityBase
-import boardgame.event.Event
-import boardgame.event.EventBus
-import boardgame.exception.CustomException
-import boardgame.exception.HttpStatus
+import boardgame.core.entitybase.BinaryId
+import boardgame.core.entitybase.EntityBase
+import boardgame.core.event.Event
+import boardgame.core.event.EventBus
+import boardgame.core.exception.CustomException
+import boardgame.core.exception.HttpStatus
 import boardgame.player.Player
 import org.jetbrains.annotations.TestOnly
 import java.time.LocalDateTime
@@ -23,10 +23,10 @@ abstract class Escapee protected constructor(
     val player: Player,
     val type: Type,
 ) : EntityBase(
-    id = id,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-) {
+        id = id,
+        createdAt = createdAt,
+        updatedAt = updatedAt,
+    ) {
     var position: Position = position
         private set
 
@@ -62,8 +62,7 @@ abstract class Escapee protected constructor(
         val row: Row,
         val column: Column,
     ) {
-        fun getDistanceFrom(position: Position) =
-            abs(position.row.value - this.row.value) + abs(position.column.value - this.column.value)
+        fun getDistanceFrom(position: Position) = abs(position.row.value - this.row.value) + abs(position.column.value - this.column.value)
 
         companion object {
             fun of(
@@ -125,9 +124,11 @@ abstract class Escapee protected constructor(
         update(position = position)
     }
 
-    data class EscapeEvent(val player: Player) : Event
+    data class EscapeEvent(
+        val player: Player,
+    ) : Event
 
-    fun escape() {
+    internal fun escape() {
         if (this.type == Type.RED) {
             throw CustomException("탈출할 수 없는 색깔입니다.", HttpStatus.BAD_REQUEST)
         }
@@ -138,6 +139,7 @@ abstract class Escapee protected constructor(
             throw CustomException("탈출을 시도할 수 없는 위치입니다.", HttpStatus.BAD_REQUEST)
         }
         update(status = Status.ESCAPE)
+        // TODO : 이벤트발행 말고 -> application에서 직접 호출하는게 더 좋아보임
         EventBus.publish(EscapeEvent(player = this.player))
     }
 

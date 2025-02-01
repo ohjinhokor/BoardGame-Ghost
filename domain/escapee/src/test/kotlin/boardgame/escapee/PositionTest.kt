@@ -1,6 +1,6 @@
 package boardgame.escapee
 
-import boardgame.exception.CustomException
+import boardgame.core.exception.CustomException
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
@@ -60,7 +60,7 @@ class PositionTest :
                         Escapee.Position.of(1, outOfRangeColumn)
                     }
 
-                    var outOfRangeRow = 6
+                    val outOfRangeRow = 6
                     shouldThrow<CustomException> {
                         Escapee.Position.of(1, outOfRangeRow)
                     }

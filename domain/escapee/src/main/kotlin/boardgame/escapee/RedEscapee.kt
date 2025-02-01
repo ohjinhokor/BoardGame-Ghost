@@ -1,6 +1,6 @@
 package boardgame.escapee
 
-import boardgame.entitybase.BinaryId
+import boardgame.core.entitybase.BinaryId
 import boardgame.player.Player
 import java.time.LocalDateTime
 

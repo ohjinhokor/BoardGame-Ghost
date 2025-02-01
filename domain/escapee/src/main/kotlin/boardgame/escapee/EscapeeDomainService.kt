@@ -1,8 +1,8 @@
 package boardgame.escapee
 
-import boardgame.entitybase.BinaryId
-import boardgame.exception.CustomException
-import boardgame.exception.HttpStatus
+import boardgame.core.entitybase.BinaryId
+import boardgame.core.exception.CustomException
+import boardgame.core.exception.HttpStatus
 import boardgame.player.Player
 import java.time.LocalDateTime
 

@@ -1,6 +1,6 @@
 package boardgame.escapee
 
-import boardgame.exception.CustomException
+import boardgame.core.exception.CustomException
 import boardgame.player.PlayerTestFixturesUtil
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
@@ -19,12 +19,12 @@ class EscapeeTest :
                 escapeeDomainService.createBlueEscapees(
                     EscapeeDomainService.CreateEscapeesCommand(
                         positions =
-                        listOf(
-                            Escapee.Position.of(outOfRangeRow, 1),
-                            Escapee.Position.of(5, 1),
-                            Escapee.Position.of(5, 2),
-                            Escapee.Position.of(5, 3),
-                        ),
+                            listOf(
+                                Escapee.Position.of(outOfRangeRow, 1),
+                                Escapee.Position.of(5, 1),
+                                Escapee.Position.of(5, 2),
+                                Escapee.Position.of(5, 3),
+                            ),
                         player = player,
                     ),
                 )
@@ -35,12 +35,12 @@ class EscapeeTest :
                 escapeeDomainService.createBlueEscapees(
                     EscapeeDomainService.CreateEscapeesCommand(
                         positions =
-                        listOf(
-                            Escapee.Position.of(outOfRangeRow, 1),
-                            Escapee.Position.of(6, 1),
-                            Escapee.Position.of(5, 1),
-                            Escapee.Position.of(5, 2),
-                        ),
+                            listOf(
+                                Escapee.Position.of(outOfRangeRow, 1),
+                                Escapee.Position.of(6, 1),
+                                Escapee.Position.of(5, 1),
+                                Escapee.Position.of(5, 2),
+                            ),
                         player = player,
                     ),
                 )
@@ -51,12 +51,12 @@ class EscapeeTest :
                 escapeeDomainService.createBlueEscapees(
                     EscapeeDomainService.CreateEscapeesCommand(
                         positions =
-                        listOf(
-                            Escapee.Position.of(notStartPositionRow, 1),
-                            Escapee.Position.of(6, 1),
-                            Escapee.Position.of(5, 1),
-                            Escapee.Position.of(5, 2),
-                        ),
+                            listOf(
+                                Escapee.Position.of(notStartPositionRow, 1),
+                                Escapee.Position.of(6, 1),
+                                Escapee.Position.of(5, 1),
+                                Escapee.Position.of(5, 2),
+                            ),
                         player = player,
                     ),
                 )
