@@ -2,7 +2,7 @@ plugins {
     kotlin("jvm")
 }
 
-group = "board-game"
+group = "board-game.infra"
 version = "1.0-SNAPSHOT"
 
 repositories {

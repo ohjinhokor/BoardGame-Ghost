@@ -2,7 +2,7 @@ plugins {
     id("java")
 }
 
-group = "board-game.player"
+group = "board-game.domain.player"
 version = "1.0-SNAPSHOT"
 
 repositories {

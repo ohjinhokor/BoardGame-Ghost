@@ -5,17 +5,12 @@ rootProject.name = "the-great-escape"
 
 include("presentation")
 include("application")
-include("domain")
 include("infra")
 
-// game
+include("domain")
 include("domain:game")
 findProject(":domain:game")?.name = "game"
-
-// core
 include("domain:core")
 findProject(":domain:core")?.name = "core"
-
-// player
 include("domain:player")
 findProject(":domain:player")?.name = "player"
