@@ -19,7 +19,7 @@ class Game internal constructor(
     var status = Status.BEFORE_START
         private set
 
-    fun start() {
+    internal fun start() {
         if (this.status != Status.BEFORE_START) {
             throw CustomException("게임을 시작할 수 없습니다", HttpStatus.BAD_REQUEST)
         }

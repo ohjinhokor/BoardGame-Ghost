@@ -1,13 +1,30 @@
 package boardgame.game
 
 import boardgame.core.entitybase.BinaryId
+import boardgame.util.shouldSuccess
 import io.kotest.core.spec.style.BehaviorSpec
+import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 
-class GameDomainServiceTest :
+val testUtils = GameTestFixturesUtil()
+val gameDomainService = GameDomainService(StubGameRepository, StubGameResultRepository)
+
+class GameDomainServiceTestFunSpec :
+    FunSpec(
+        {
+            test("start Game") {
+                val game = testUtils.createGame()
+
+                gameDomainService.startGame(game.id)
+
+                val savedGame = StubGameRepository.getOrNull(game.id).shouldSuccess()
+                savedGame.status shouldBe Game.Status.PROGRESS
+            }
+        },
+    )
+
+class GameDomainServiceTestBehaviorSpec :
     BehaviorSpec({
-        val testUtils = GameTestFixturesUtil()
-        val gameDomainService = GameDomainService(StubGameRepository, StubGameResultRepository)
         Given("게임 생성, 게임 시작 후") {
             val game = testUtils.createGame()
 
