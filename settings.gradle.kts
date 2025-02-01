@@ -4,7 +4,6 @@ plugins {
 rootProject.name = "the-great-escape"
 
 include("presentation")
-include("application")
 include("infra")
 
 include("domain")
@@ -16,3 +15,7 @@ include("domain:player")
 findProject(":domain:player")?.name = "player"
 include("domain:escapee")
 findProject(":domain:escapee")?.name = "escapee"
+
+include("application")
+include("application:game")
+findProject(":application:game")?.name = "game"
