@@ -63,13 +63,16 @@ class PlayerDomainService(
         val otherPlayer = otherPlayers.first()
         if (otherPlayer.status == Player.Status.JOINED) {
             player.readyForGame()
+            repository.save(player)
             return
         }
 
         if (otherPlayer.status == Player.Status.READY) {
             otherPlayer.startGame()
             player.startGame()
-            player.joinedGame!!.start()
+            repository.save(player)
+            repository.save(otherPlayer)
+            gameDomainService.startGame(joinedGame.id)
             return
         }
 
