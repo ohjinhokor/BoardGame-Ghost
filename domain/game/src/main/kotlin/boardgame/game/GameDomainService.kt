@@ -56,4 +56,10 @@ class GameDomainService(
         gameRepository.save(command.game)
         gameResultRepository.save(gameResult)
     }
+
+    fun startGame(id: BinaryId) {
+        val game = gameRepository.getOrException(id)
+        game.start()
+        gameRepository.save(game)
+    }
 }
