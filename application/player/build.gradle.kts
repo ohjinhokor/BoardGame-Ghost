@@ -14,4 +14,8 @@ dependencies {
     implementation(project(":domain:game"))
     implementation(project(":domain:player"))
     implementation(project(":application:game"))
+
+    testImplementation(testFixtures(project(":domain:core")))
+    testImplementation(testFixtures(project(":domain:player")))
+    testImplementation(testFixtures(project(":domain:game")))
 }
