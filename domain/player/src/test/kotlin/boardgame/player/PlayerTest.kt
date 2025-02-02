@@ -15,31 +15,31 @@ class PlayerTest :
             shouldThrow<CustomException> {
                 Player.Nickname(nicknameLengthIsLonger)
             }
+        }
 
-            test("player win") {
-                val player = testFixtures.createPlayer()
-                val before = player.winCount
-                player.win()
-                val after = player.winCount
-                after shouldBe before + 1
-            }
+        test("player win") {
+            val player = testFixtures.createPlayer()
+            val before = player.winCount
+            player.win()
+            val after = player.winCount
+            after shouldBe before + 1
+        }
 
-            test("player lose") {
-                val player = testFixtures.createPlayer()
-                val before = player.loseCount
-                player.lose()
-                val after = player.loseCount
-                after shouldBe before + 1
-            }
+        test("player lose") {
+            val player = testFixtures.createPlayer()
+            val before = player.loseCount
+            player.lose()
+            val after = player.loseCount
+            after shouldBe before + 1
+        }
 
-            test("player join game") {
-                val player = testFixtures.createPlayer()
-                val game = gameTestFixtureUtil.createGame()
-                player.joinGame(game)
-                player.joinedGame shouldBe game
+        test("player join game") {
+            val player = testFixtures.createPlayer()
+            val game = gameTestFixtureUtil.createGame()
+            player.joinGame(game)
+            player.joinedGame shouldBe game
 
-                player.quitGame()
-                player.joinedGame shouldBe null
-            }
+            player.quitGame()
+            player.joinedGame shouldBe null
         }
     })

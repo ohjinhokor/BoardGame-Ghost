@@ -38,7 +38,7 @@ class PlayerDomainService(
             status = Player.Status.NONE,
         )
 
-    private fun win(winner: Player) {
+    internal fun win(winner: Player) {
         val loser = findLoserByWinner(winner)
         processGameResult(winner, loser)
 
