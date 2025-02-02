@@ -19,3 +19,5 @@ findProject(":domain:escapee")?.name = "escapee"
 include("application")
 include("application:game")
 findProject(":application:game")?.name = "game"
+include("application:player")
+findProject(":application:player")?.name = "player"
