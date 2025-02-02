@@ -6,14 +6,22 @@ import boardgame.core.exception.HttpStatus
 import boardgame.player.Player
 import java.time.LocalDateTime
 
-class EscapeeDomainService {
+class EscapeeDomainService(
+    private val repository: EscapeeRepository,
+) {
     data class CreateEscapeesCommand(
         val positions: List<Escapee.Position>,
         val player: Player,
     )
 
-    fun createRedEscapees(command: CreateEscapeesCommand): List<RedEscapee> =
-        command.positions.mapIndexed { index, position ->
+    fun createRedEscapees(command: CreateEscapeesCommand): List<RedEscapee> {
+        if (command.positions.size != INITIAL_RED_ESCAPEE_COUNT) {
+            throw CustomException("빨간색 $ESCAPEE_KOREAN_NAME 생성은 한 번에 4개만 가능합니다.", HttpStatus.BAD_REQUEST)
+        }
+        if (repository.findByPlayer(command.player).any { it.type == Escapee.Type.RED }) {
+            throw CustomException("이미 생성된 ${ESCAPEE_KOREAN_NAME}이 있습니다.", HttpStatus.BAD_REQUEST)
+        }
+        return command.positions.map { position ->
             createEscapee(
                 CreateEscapeeCommand(
                     position = position,
@@ -22,9 +30,16 @@ class EscapeeDomainService {
                 ),
             ) as RedEscapee
         }
+    }
 
-    fun createBlueEscapees(command: CreateEscapeesCommand): List<BlueEscapee> =
-        command.positions.mapIndexed { index, position ->
+    fun createBlueEscapees(command: CreateEscapeesCommand): List<BlueEscapee> {
+        if (command.positions.size != INITIAL_BLUE_ESCAPEE_COUNT) {
+            throw CustomException("파란색 $ESCAPEE_KOREAN_NAME 생성은 한 번에 4개만 가능합니다.", HttpStatus.BAD_REQUEST)
+        }
+        if (repository.findByPlayer(command.player).any { it.type == Escapee.Type.BLUE }) {
+            throw CustomException("이미 생성된 ${ESCAPEE_KOREAN_NAME}이 있습니다.", HttpStatus.BAD_REQUEST)
+        }
+        return command.positions.map { position ->
             createEscapee(
                 CreateEscapeeCommand(
                     position = position,
@@ -33,6 +48,7 @@ class EscapeeDomainService {
                 ),
             ) as BlueEscapee
         }
+    }
 
     data class CreateEscapeeCommand(
         val position: Escapee.Position,

@@ -4,6 +4,8 @@ import boardgame.core.entitybase.BinaryId
 import boardgame.player.Player
 import java.time.LocalDateTime
 
+const val INITIAL_BLUE_ESCAPEE_COUNT: Int = 4
+
 class BlueEscapee internal constructor(
     id: BinaryId,
     createdAt: LocalDateTime,

@@ -139,7 +139,6 @@ abstract class Escapee protected constructor(
             throw CustomException("탈출을 시도할 수 없는 위치입니다.", HttpStatus.BAD_REQUEST)
         }
         update(status = Status.ESCAPE)
-        // TODO : 이벤트발행 말고 -> application에서 직접 호출하는게 더 좋아보임
         EventBus.publish(EscapeEvent(player = this.player))
     }
 
