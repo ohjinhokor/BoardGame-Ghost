@@ -17,6 +17,8 @@ object EventBus {
             .filter { it is T }
             .map { it as T }
             .doOnNext(action)
+            // TODO : 예외가 터졌을 때 후처리 필요함. 로깅 또는 알림이 좋아보임
+            .onErrorContinue { _, _ -> }
             .subscribe()
     }
 }
