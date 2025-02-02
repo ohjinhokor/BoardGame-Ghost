@@ -16,6 +16,7 @@ dependencies {
 
     testImplementation(testFixtures(project(":domain:escapee")))
     testImplementation(testFixtures(project(":domain:player")))
+    testImplementation(testFixtures(project(":domain:game")))
 
     testFixturesImplementation(testFixtures(project(":domain:core")))
 }
