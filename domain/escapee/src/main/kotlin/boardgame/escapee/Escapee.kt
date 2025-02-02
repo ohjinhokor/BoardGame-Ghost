@@ -2,11 +2,11 @@ package boardgame.escapee
 
 import boardgame.core.entitybase.BinaryId
 import boardgame.core.entitybase.EntityBase
-import boardgame.core.event.Event
 import boardgame.core.event.EventBus
 import boardgame.core.exception.CustomException
 import boardgame.core.exception.HttpStatus
 import boardgame.player.Player
+import boardgame.player.PlayerDomainService.GameFinishedEvent
 import org.jetbrains.annotations.TestOnly
 import java.time.LocalDateTime
 import kotlin.math.abs
@@ -124,10 +124,6 @@ abstract class Escapee protected constructor(
         update(position = position)
     }
 
-    data class EscapeEvent(
-        val player: Player,
-    ) : Event
-
     internal fun escape() {
         if (this.type == Type.RED) {
             throw CustomException("탈출할 수 없는 색깔입니다.", HttpStatus.BAD_REQUEST)
@@ -139,7 +135,7 @@ abstract class Escapee protected constructor(
             throw CustomException("탈출을 시도할 수 없는 위치입니다.", HttpStatus.BAD_REQUEST)
         }
         update(status = Status.ESCAPE)
-        EventBus.publish(EscapeEvent(player = this.player))
+        EventBus.publish(GameFinishedEvent(winner = this.player))
     }
 
     fun die() {

@@ -1,6 +1,8 @@
 package boardgame.player
 
 import boardgame.core.entitybase.BinaryId
+import boardgame.core.event.Event
+import boardgame.core.event.EventBus
 import boardgame.core.exception.CustomException
 import boardgame.core.exception.HttpStatus
 import boardgame.game.Game
@@ -12,6 +14,16 @@ class PlayerDomainService(
     private val repository: PlayerRepository,
     private val gameDomainService: GameDomainService,
 ) {
+    init {
+        EventBus.receive<GameFinishedEvent> {
+            win(it.winner)
+        }
+    }
+
+    data class GameFinishedEvent(
+        val winner: Player,
+    ) : Event
+
     data class CreatePlayerCommand(
         val nickname: Nickname,
     )
@@ -26,10 +38,9 @@ class PlayerDomainService(
             status = Player.Status.NONE,
         )
 
-    fun win(winner: Player) {
+    private fun win(winner: Player) {
         val loser = findLoserByWinner(winner)
-        winner.win()
-        loser.lose()
+        processGameResult(winner, loser)
 
         // TODO : 추후 GameResult를 Game으로부터 분리할 예정. 그러면 event 던져야 함
         gameDomainService.end(
@@ -39,6 +50,14 @@ class PlayerDomainService(
                 loserId = loser.id,
             ),
         )
+    }
+
+    private fun processGameResult(
+        winner: Player,
+        loser: Player,
+    ) {
+        winner.win()
+        loser.lose()
 
         repository.save(winner)
         repository.save(loser)

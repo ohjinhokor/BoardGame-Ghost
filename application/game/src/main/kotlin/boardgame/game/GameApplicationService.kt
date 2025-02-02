@@ -13,6 +13,8 @@ class GameApplicationService(
         val game: Game,
     ) : Event
 
+    fun findById(id: BinaryId) = gameRepository.getOrNull(id)
+
     fun createGame(
         creatorId: BinaryId,
         title: String,
