@@ -15,6 +15,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-websocket")
     implementation("org.springframework.boot:spring-boot-starter-amqp")
     implementation("org.springframework.boot:spring-boot-starter-reactor-netty")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
     developmentOnly("io.netty:netty-resolver-dns-native-macos:4.1.72.Final:osx-aarch_64")
 
     implementation(project(":domain:core"))
