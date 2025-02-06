@@ -1,0 +1,7 @@
+push:
+  endpoint: PUSH_ENDPOINT
+  stomp-relay-prefix: PUSH_STOMP_RELAY_PREFIX
+  relay-host: PUSH_RELAY_HOST
+  relay-port: PUSH_RELAY_PORT
+  username: PUSH_RELAY_USERNAME
+  password: PUSH_RELAY_PASSWORD
