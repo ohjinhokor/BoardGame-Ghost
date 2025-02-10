@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm")
     id("nu.studer.jooq") version "9.0"
+    id("org.flywaydb.flyway") version "8.0.0"
 }
 
 group = "board-game.infra"
@@ -15,6 +16,8 @@ dependencies {
     implementation("org.jooq:jooq:3.19.18")
     implementation("org.jooq:jooq-kotlin:3.19.18")
     implementation("org.jooq:jooq-kotlin-coroutines:3.19.18")
+    implementation("org.flywaydb:flyway-core:11.3.1")
+    implementation("org.flywaydb:flyway-mysql:11.3.1")
     jooqGenerator("org.mariadb.jdbc:mariadb-java-client:3.5.1")
 
     testFixturesImplementation(project(":domain"))
@@ -22,11 +25,11 @@ dependencies {
 
 val databaseEngine = providers.environmentVariable("DATABASE_ENGINE").getOrElse("mariadb")
 val databaseHost = providers.environmentVariable("DATABASE_HOST").getOrElse("localhost")
-val databasePort = providers.environmentVariable("DATABASE_PORT").getOrElse("3307")
+val databasePort = providers.environmentVariable("DATABASE_PORT").getOrElse("3306")
 val databaseUrl = "jdbc:$databaseEngine://$databaseHost:$databasePort"
-val databaseUser = providers.environmentVariable("DATABASE_USERNAME").getOrElse("")
-val databasePassword = providers.environmentVariable("DATABASE_PASSWORD").getOrElse("")
-val databaseSchema = providers.environmentVariable("DATABASE_SCHEMA").getOrElse("")
+val databaseUser = providers.environmentVariable("DATABASE_USERNAME").get()
+val databasePassword = providers.environmentVariable("DATABASE_PASSWORD").get()
+val databaseSchema = providers.environmentVariable("DATABASE_SCHEMA").get()
 val migrationTable = "flyway_schema_history"
 
 jooq {
@@ -83,8 +86,21 @@ jooq {
 }
 
 tasks {
-    named("generateJooq").configure {}
+    flyway {
+        url = "$databaseUrl/$databaseSchema"
+        table = migrationTable
+        user = databaseUser
+        password = databasePassword
+        locations = listOf("filesystem:../database/migrations/").toTypedArray()
+        connectRetries = 60
+        cleanDisabled = false
+    }
+
+    named("generateJooq").configure {
+        dependsOn("flywayClean", "flywayMigrate")
+    }
 }
+
 kotlin {
     jvmToolchain(21)
 }
