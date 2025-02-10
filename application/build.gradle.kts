@@ -3,7 +3,6 @@ plugins {
 }
 
 group = "board-game.application"
-version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()

@@ -3,7 +3,6 @@ plugins {
 }
 
 group = "board-game.domain.core"
-version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
